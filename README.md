@@ -79,26 +79,15 @@ aws ec2 describe-instances --instance-id i-06e664c7f5fc35c8c
 
 ssh -i "MyKeyPair.pem" ec2-user@52.77.255.65
 
-### Step 4: Clean up
+# ECS
 
-aws ec2 terminate-instances --instance-ids i-06e664c7f5fc35c8c
-
-aws ec2 delete-security-group --group-id sg-027e7e93479f3069d
-
-aws ec2 delete-subnet --subnet-id subnet-06b6d08f4bb4fc6e4
-aws ec2 delete-subnet --subnet-id subnet-08d880757d17d197b
-
-aws ec2 delete-route-table --route-table-id rtb-0f4eb7f9b8df8c9cc
-
-aws ec2 detach-internet-gateway --internet-gateway-id igw-0940858e81c600a65 --vpc-id vpc-0414a605b4056e3f2
-
-aws ec2 delete-internet-gateway --internet-gateway-id igw-0940858e81c600a65
-
-aws ec2 delete-vpc --vpc-id vpc-0414a605b4056e3f2
-
-# Step 1: Create an Amazon ECS cluster
+### Step 1: Create an Amazon ECS cluster
 
 aws ecs create-cluster --cluster-name cli-cluster
+
+#### Create security group for ECS Service
+
+#### Create service
 
 aws ecs create-service --cluster cli-cluster \
 --service-name cli-service \
@@ -116,3 +105,20 @@ aws ecs create-service --cluster cli-cluster \
 # Step 5: Create a task definition
 
 # Step 6: Run a task and view the results
+
+### Step 4: Clean up
+
+aws ec2 terminate-instances --instance-ids i-06e664c7f5fc35c8c
+
+aws ec2 delete-security-group --group-id sg-027e7e93479f3069d
+
+aws ec2 delete-subnet --subnet-id subnet-06b6d08f4bb4fc6e4
+aws ec2 delete-subnet --subnet-id subnet-08d880757d17d197b
+
+aws ec2 delete-route-table --route-table-id rtb-0f4eb7f9b8df8c9cc
+
+aws ec2 detach-internet-gateway --internet-gateway-id igw-0940858e81c600a65 --vpc-id vpc-0414a605b4056e3f2
+
+aws ec2 delete-internet-gateway --internet-gateway-id igw-0940858e81c600a65
+
+aws ec2 delete-vpc --vpc-id vpc-0414a605b4056e3f2

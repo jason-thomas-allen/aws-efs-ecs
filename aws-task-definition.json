@@ -1,0 +1,39 @@
+{
+  "executionRoleArn": "arn:aws:iam::462567405151:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "memory": 128,
+      "cpu": 99,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "mountPoints": [
+        {
+          "containerPath": "/usr/share/nginx/html",
+          "sourceVolume": "efs-html"
+        }
+      ],
+      "name": "sample-container",
+      "image": "462567405151.dkr.ecr.ap-southeast-1.amazonaws.com/dub-ecr-repo:e7b9b9cb4f286268ec46ed101cf5eca95ee109b9"
+    }
+  ],
+  "requiresCompatibilities": ["FARGATE"],
+  "networkMode": "awsvpc",
+  "memory": "512",
+  "cpu": "256",
+  "volumes": [
+    {
+      "name": "efs-html",
+      "efsVolumeConfiguration": {
+        "fileSystemId": "dummy",
+        "transitEncryption": "ENABLED"
+      }
+    }
+  ],
+  "family": "sample-task-def"
+}
